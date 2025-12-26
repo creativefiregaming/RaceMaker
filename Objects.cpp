@@ -27,5 +27,4 @@ void RaceBall::Render()
 	Rectangle dest = { RaceBall::x - RaceBall::r, RaceBall::y - RaceBall::r, RaceBall::r * 2, RaceBall::r * 2 };
 	Vector2 ori = { 0, 0 };
 	DrawTexturePro(*RaceBall::balltexture, src, dest, ori, 0.0f, WHITE);
-	std::cout << "ball rendering" << std::endl;
 }
