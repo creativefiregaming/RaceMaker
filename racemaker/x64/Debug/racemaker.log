@@ -1,2 +1,3 @@
 ﻿  main.cpp
-  racemaker.vcxproj -> C:\Users\pickl\Documents\GitHub\RaceMaker\x64\Debug\racemaker.exe
+C:\C++\racemaker\main.cpp(37,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  racemaker.vcxproj -> C:\C++\racemaker\x64\Debug\racemaker.exe

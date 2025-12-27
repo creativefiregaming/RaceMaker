@@ -17,8 +17,8 @@ RaceBall::RaceBall(float xPosition, float yPosition, float radius, float xSpeed,
 
 void RaceBall::Update()
 {
-	RaceBall::x += RaceBall::vx;
-	RaceBall::y += RaceBall::vy;
+	RaceBall::x += RaceBall::vx * GetFrameTime();
+	RaceBall::y += RaceBall::vy * GetFrameTime();
 }
 
 void RaceBall::Render()

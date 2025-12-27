@@ -39,10 +39,12 @@ void Scene::Play()
 
 	//render GUI
 
+	rlImGuiBegin();
 	for (GUIWindow* window : Scene::windows)
 	{
 		window->render();
 	}
+	rlImGuiEnd();
 
 	EndDrawing();
 }
@@ -83,7 +85,7 @@ void GUIWindow::AddButton(std::string text, float x, float y, float width, float
 void GUIWindow::render()
 {
 
-	rlImGuiBegin();
+	
 
 	ImGui::SetNextWindowPos(ImVec2(GUIWindow::X, GUIWindow::Y), ImGuiCond_Always);
 	ImGui::SetNextWindowSize(ImVec2(GUIWindow::W, GUIWindow::H), ImGuiCond_Always);
@@ -140,5 +142,5 @@ void GUIWindow::render()
 	}
 	ImGui::End();
 
-	rlImGuiEnd();
+	
 }

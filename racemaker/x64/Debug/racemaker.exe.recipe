@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\pickl\Documents\GitHub\RaceMaker\x64\Debug\racemaker.exe</FullPath>
+      <FullPath>C:\C++\racemaker\x64\Debug\racemaker.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
