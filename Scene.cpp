@@ -8,11 +8,19 @@
 
 #include "imgui.h"
 #include "rlImGui.h"
+#include "imgui_stdlib.h"
+
 
 
 Scene::Scene(std::string name)
 {
 	Scene::SceneName = name;
+	for (GUIWindow* window : Scene::windows)
+	{
+
+		ImGui::SetNextWindowPos(ImVec2(window->X, window->Y), ImGuiCond_Always);
+		ImGui::SetNextWindowSize(ImVec2(window->W, window->H), ImGuiCond_Always);
+	}
 }
 
 RaceBall* Scene::AddRaceBall(float x, float y, float r, float speedX, float speedY, Texture* texture)
@@ -42,6 +50,7 @@ void Scene::Play()
 	rlImGuiBegin();
 	for (GUIWindow* window : Scene::windows)
 	{
+
 		window->render();
 	}
 	rlImGuiEnd();
@@ -49,8 +58,9 @@ void Scene::Play()
 	EndDrawing();
 }
 
-GUIElement::GUIElement(std::string element_type, std::string content, float x, float y, float w, float h, std::function<void()> command)
+GUIElement::GUIElement(std::string element_type, std::string content, float x, float y, float w, float h, std::function<void()> command, std::string* io)
 {
+	inputoutput = io;
 	etype = element_type;
 	cont = content;
 	X = x;
@@ -74,22 +84,21 @@ GUIWindow::GUIWindow(std::string name, bool resizable, bool moveable, bool colla
 
 void GUIWindow::AddText(std::string text)
 {
-	elements.emplace_back("txt", text, 0, 0, 0, 0, []{});
+	elements.emplace_back("txt", text, 0, 0, 0, 0, []{}, nullptr);
 }
 
 void GUIWindow::AddButton(std::string text, float x, float y, float width, float height, std::function<void()> command)
 {
-	elements.emplace_back("btn", text, x, y, width, height, command);
+	elements.emplace_back("btn", text, x, y, width, height, command, nullptr);
+}
+
+void GUIWindow::AddTextInput(const std::string& text, std::string& iobuffer)
+{
+	elements.emplace_back("tin", text, 0, 0, 0, 0, [] {}, &iobuffer);
 }
 
 void GUIWindow::render()
 {
-
-	
-
-	ImGui::SetNextWindowPos(ImVec2(GUIWindow::X, GUIWindow::Y), ImGuiCond_Always);
-	ImGui::SetNextWindowSize(ImVec2(GUIWindow::W, GUIWindow::H), ImGuiCond_Always);
-
 	ImGuiWindowFlags r;
 	if (GUIWindow::resize)
 	{
@@ -138,6 +147,10 @@ void GUIWindow::render()
 			{
 				ele.cmd();
 			}
+		}
+		if (ele.etype == "tin")
+		{
+			ImGui::InputText(ele.cont.c_str(), ele.inputoutput);
 		}
 	}
 	ImGui::End();
